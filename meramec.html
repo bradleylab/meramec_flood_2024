@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Swipe Comparison Map</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.13.0/mapbox-gl.css" rel="stylesheet">
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.13.0/mapbox-gl.js"></script>
+  <link href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-compare/v0.4.0/mapbox-gl-compare.css" rel="stylesheet">
+  <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-compare/v0.4.0/mapbox-gl-compare.js"></script>
+  <style>
+    body { margin: 0; padding: 0; }
+    #comparison-container { position: absolute; top: 0; bottom: 0; width: 100%; }
+  </style>
+</head>
+<body>
+  <div id="comparison-container"></div>
+  <script>
+    // Set up Mapbox access token
+    mapboxgl.accessToken = 'pk.eyJ1IjoiYWxleGJyYWRsZXkiLCJhIjoiZjUwNzlhYzI3MDA0MDQxODA5MjQ2NTM5NGFkYjE3ZDMifQ.ycacFFUw10EtKlHiCznDlA';
+
+    // Center coordinates calculated from the GeoJSON AOI
+    var centerCoordinates = [-90.56469110652749, 38.539790465751765]; // Longitude, Latitude
+
+    // Create the first map instance (left-hand side)
+    var map1 = new mapboxgl.Map({
+      container: 'comparison-container', // Container ID for comparison
+      style: 'mapbox://styles/alexbradley/cm3dschxu004a01qj9a4l16uo', // Style URL for first tileset
+      center: centerCoordinates, // Set the center coordinates of your AOI
+      zoom: 12 // Set the initial zoom level to 12 for a good view of your area
+    });
+
+    // Create the second map instance (right-hand side)
+    var map2 = new mapboxgl.Map({
+      container: 'comparison-container', // Container ID for comparison
+      style: 'mapbox://styles/alexbradley/cm3dsf6ak005701pahnbcajc5', // Style URL for second tileset
+      center: centerCoordinates, // Set the same center coordinates as map1
+      zoom: 12 // Set the same zoom level as map1
+    });
+
+    // Add the swipe control using mapbox-gl-compare
+    var compare = new mapboxgl.Compare(map1, map2, '#comparison-container', {});
+  </script>
+</body>
+</html>
